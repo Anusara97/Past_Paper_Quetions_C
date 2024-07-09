@@ -26,13 +26,19 @@ float calMaxTempurature(WDR Record []);
 float calMinHumidity(WDR Record []);
 int calTotalRainfall(WDR Record []);
 float calAvgWindSpeed(WDR Record []);
-void displayMenu();
+
 
 int main() {
+    displayMenu();
+    return 0;
+}
+
+void displayMenu() {
     printf("\t\tMain Menu\n");
     printf("===========================\n");
     printf("(1) Add New Record\n");
     printf("(2) Print Daily Weather Report\n");
-    printf("(3) Print Summery Report\n");
-    return 0;
+    printf("(3) Print Summery Report\n\n");
+
+    printf("Input any number among 1 - 3: ");
 }
