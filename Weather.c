@@ -29,7 +29,7 @@ float calMaxTempurature(WDR Records [NO_OF_REAGIONS]);
 float calMinHumidity(WDR Records [NO_OF_REAGIONS]);
 int calTotalRainfall(WDR Records [NO_OF_REAGIONS]);
 float calAvgWindSpeed(WDR Records [NO_OF_REAGIONS]);
-
+void getSummeryReport(WDR Records [NO_OF_REAGIONS]);
 
 int main() {
     mainMenuHandler();
@@ -68,7 +68,7 @@ void mainMenuHandler() {
                 printWeatherReport(Records);
                 break;
             case PRINT_SUMMERY:
-                //printSummeryReport();
+                getSummeryReport(Records);
                 break;
             case EXIT:
                 printf("Exit\n");
@@ -112,9 +112,9 @@ WDR readData(){
 
 void printWeatherReport(WDR Records [NO_OF_REAGIONS] ) {
     printf("\t\t Daily Weather Report \(%s\)\n", Records[0].date);
-    printf("CenterID\tTemperature(C)\tHumidity(%)\tRainfall(ml)\tWind Speed(km/h)\n");
+    printf("CenterID\tTemperature(C)\tHumidity(%%)\tRainfall(ml)\tWind Speed(km/h)\n");
     printf("============================================================================\n\n");
-    for (int i=0; i<1; i++) {
+    for (int i=0; i<NO_OF_REAGIONS; i++) {
         printf("%d\t\t%.2f\t\t%.2f\t\t%d\t\t%.2f\n\n", Records[i].centerID, Records[i].temperature, Records[i].humidity, Records[i].rainfall, Records[i].windSpeed);
     }
 }
@@ -162,19 +162,21 @@ float calAvgWindSpeed(WDR Records [NO_OF_REAGIONS]) {
     return AvgWindSpeed;
 }
 
-void printSummeryReport(SWR Report) {
+void getSummeryReport(WDR Records [NO_OF_REAGIONS]) {
     float maxTempurature = calMaxTempurature(Records);
     float minHumidity = calMinHumidity(Records);
     int totalRainfall = calTotalRainfall(Records);
     float avgWindSpeed = calAvgWindSpeed(Records);
 
-    SWR = {maxTempurature, minHumidity, totalRainfall, avgWindSpeed};
+    SWR Report = {maxTempurature, minHumidity, totalRainfall, avgWindSpeed};
+    printSummeryReport(Report);
+}
 
-
-    printf("\t\tSummery Weather Report\n");
-    printf("================================================");
-    printf("Maximum Temperature(c)\t\t:%f\n", Report.maxTempurature);
-    printf("Minimum Humidity(%) \t\t:%f\n", Report.minHumidity);
-    printf("Total Rainfall(ml)\t\t:%d", Report.totalRainfall);
-    printf("Average Wind Speed(km\h) \t\t:%f\n\n", Report.avgWindSpeed);
+void printSummeryReport(SWR Report){
+    printf("\n\t\tSummery Weather Report\n");
+    printf("================================================\n");
+    printf("Maximum Temperature(c)\t\t:%.2f\n", Report.maxTempurature);
+    printf("Minimum Humidity(%%) \t\t:%.2f\n", Report.minHumidity);
+    printf("Total Rainfall(ml)\t\t:%d\n", Report.totalRainfall);
+    printf("Average Wind Speed(km\h) \t\t:%.2f\n\n", Report.avgWindSpeed);
 }
