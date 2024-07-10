@@ -9,7 +9,7 @@ enum mainMenuOptions {ADD_NEW_RECORD =1, PRINT_WEATHER_REPORT, PRINT_SUMMERY, EX
 typedef struct WeatherDataRecord {
     int centerID;
     char date[15];
-    float tempurature;
+    float temperature;
     float humidity;
     int rainfall;
     float windSpeed;
@@ -85,26 +85,27 @@ WDR readData(){
     int rain;
     float wSpeed;
 
-    printf("Enter center ID\t\t\t:");
+     printf("Enter center ID\t\t\t:");
     scanf("%d", &centerID);
 
     printf("Enter date (yyyy/mm/dd)\t\t:");
-    scanf(" %[^\n]s", &date);
+    scanf(" %[^\n]s", date);
 
     printf("Enter Temperature(C)\t\t:");
-    scanf(" %f", &temp);
+    scanf("%f", &temp);
 
-    printf("Enter Humidity(\%)\t\t:");
-    scanf(" %f", &humi);
+    printf("Enter Humidity(%%)\t\t:");
+    scanf("%f", &humi);
 
     printf("Enter Rainfall(ml)\t\t:");
-    scanf(" %d", &rain);
+    scanf("%d", &rain);
 
     printf("Enter Wind Speed(km/h)\t\t:");
-    scanf(" %f", &wSpeed);
+    scanf("%f", &wSpeed);
     printf("\n");
 
-    WDR newRecord = {centerID, date, temp, humi, rain,wSpeed};
+    WDR newRecord = {centerID, "", temp, humi, rain, wSpeed};
+    strcpy(newRecord.date, date);
 
     return newRecord;
 }
@@ -112,8 +113,17 @@ WDR readData(){
 void printWeatherReport(WDR Records [NO_OF_REAGIONS] ) {
     printf("\t\t Daily Weather Report \(%s\)\n", Records[0].date);
     printf("CenterID\tTemperature(C)\tHumidity(%)\tRainfall(ml)\tWind Speed(km/h)\n");
-    printf("=====================================================================\n\n");
+    printf("============================================================================\n\n");
     for (int i=0; i<1; i++) {
-        printf("%d\t%.2f\t%.2f\t%d\t%.2f\n\n", Records[i].centerID, Records[i].tempurature, Records[i].humidity, Records[i].rainfall, Records[i].windSpeed);
+        printf("%d\t\t%.2f\t\t%.2f\t\t%d\t\t%.2f\n\n", Records[i].centerID, Records[i].temperature, Records[i].humidity, Records[i].rainfall, Records[i].windSpeed);
     }
+}
+
+float calMaxTempurature(WDR Record [NO_OF_REAGIONS]){
+    float maxTemp = 0;
+
+    for (int i=0; i<NO_OF_REAGIONS; i++) {
+        maxTemp += Record[i].temperature;
+    }
+    return maxTemp;
 }
