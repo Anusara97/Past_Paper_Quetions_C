@@ -23,10 +23,10 @@ typedef struct summeryWeatherReoprt {
 }SWR;
 
 WDR readData();
-void printWeatherReport(WDR Record [NO_OF_REAGIONS] );
+void printWeatherReport(WDR Records [NO_OF_REAGIONS] );
 void printSummeryReport(SWR Report);
-float calMaxTempurature(WDR Record [NO_OF_REAGIONS]);
-float calMinHumidity(WDR Record [NO_OF_REAGIONS]);
+float calMaxTempurature(WDR Records [NO_OF_REAGIONS]);
+float calMinHumidity(WDR Records [NO_OF_REAGIONS]);
 int calTotalRainfall(WDR Record [NO_OF_REAGIONS]);
 float calAvgWindSpeed(WDR Record [NO_OF_REAGIONS]);
 
@@ -119,11 +119,26 @@ void printWeatherReport(WDR Records [NO_OF_REAGIONS] ) {
     }
 }
 
-float calMaxTempurature(WDR Record [NO_OF_REAGIONS]){
+float calMaxTempurature(WDR Records [NO_OF_REAGIONS]){
     float maxTemp = 0;
 
     for (int i=0; i<NO_OF_REAGIONS; i++) {
-        maxTemp += Record[i].temperature;
+        if (Records[i].temperature > maxTemp) {
+            maxTemp = Records[i].temperature;
+        }
     }
     return maxTemp;
+}
+
+float calMinHumidity(WDR Records [NO_OF_REAGIONS]) {
+    float maxHumi = 0;
+
+    for (int i=0; i<NO_OF_REAGIONS; i++) {
+        if (Records[i].humidity > maxHumi) {
+            maxHumi = Records[i].humidity;
+        }
+    }
+    return maxHumi;
+}
+
 }
