@@ -27,8 +27,8 @@ void printWeatherReport(WDR Records [NO_OF_REAGIONS] );
 void printSummeryReport(SWR Report);
 float calMaxTempurature(WDR Records [NO_OF_REAGIONS]);
 float calMinHumidity(WDR Records [NO_OF_REAGIONS]);
-int calTotalRainfall(WDR Record [NO_OF_REAGIONS]);
-float calAvgWindSpeed(WDR Record [NO_OF_REAGIONS]);
+int calTotalRainfall(WDR Records [NO_OF_REAGIONS]);
+float calAvgWindSpeed(WDR Records [NO_OF_REAGIONS]);
 
 
 int main() {
@@ -131,14 +131,50 @@ float calMaxTempurature(WDR Records [NO_OF_REAGIONS]){
 }
 
 float calMinHumidity(WDR Records [NO_OF_REAGIONS]) {
-    float maxHumi = 0;
+    float minHumi = 1000;
 
     for (int i=0; i<NO_OF_REAGIONS; i++) {
-        if (Records[i].humidity > maxHumi) {
-            maxHumi = Records[i].humidity;
+        if (Records[i].humidity < minHumi) {
+            minHumi = Records[i].humidity;
         }
     }
-    return maxHumi;
+    return minHumi;
 }
 
+int calTotalRainfall(WDR Records [NO_OF_REAGIONS]){
+    int maxRainfall = 0;
+
+    for (int i=0; i<NO_OF_REAGIONS; i++) {
+        maxRainfall += Records[i].rainfall;
+    }
+    return maxRainfall;
+}
+
+float calAvgWindSpeed(WDR Records [NO_OF_REAGIONS]) {
+    int AvgWindSpeed = 0;
+
+    for (int i=0; i<NO_OF_REAGIONS; i++) {
+        AvgWindSpeed += Records[i].windSpeed;
+    }
+
+    AvgWindSpeed = AvgWindSpeed/50.00;
+
+    return AvgWindSpeed;
+}
+
+void printSummeryReport(SWR Report) {
+    float maxTempurature = calMaxTempurature(Records);
+    float minHumidity = calMinHumidity(Records);
+    int totalRainfall = calTotalRainfall(Records);
+    float avgWindSpeed = calAvgWindSpeed(Records);
+
+    SWR = {maxTempurature, minHumidity, totalRainfall, avgWindSpeed};
+
+
+    printf("\t\tSummery Weather Report\n");
+    printf("================================================");
+    printf("Maximum Temperature(c)\t\t:%f\n", Report.maxTempurature);
+    printf("Minimum Humidity(%) \t\t:%f\n", Report.minHumidity);
+    printf("Total Rainfall(ml)\t\t:%d", Report.totalRainfall);
+    printf("Average Wind Speed(km\h) \t\t:%f\n\n", Report.avgWindSpeed);
 }
