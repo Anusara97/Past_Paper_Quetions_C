@@ -57,6 +57,15 @@ void mainMenuHandler() {
     WDR newRecord;
     WDR Records [NO_OF_REAGIONS];
 
+    for (int i=0; i<NO_OF_REAGIONS; i++) {
+        Records[i].centerID = 0;
+        strcpy(Records[i].date, "--");
+        Records[i].temperature = 0.0;
+        Records[i].humidity = 0.0;
+        Records[i].rainfall = 0;
+        Records[i].windSpeed = 0.0;
+    }
+
     do {
         choice = displayMenu();
         switch (choice) {
