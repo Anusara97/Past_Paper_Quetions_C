@@ -2,7 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 
-const NO_OF_REAGIONS = 50;
+const int NO_OF_REAGIONS = 50;
 
 enum mainMenuOptions {ADD_NEW_RECORD =1, PRINT_WEATHER_REPORT, PRINT_SUMMERY, EXIT};
 
@@ -25,6 +25,7 @@ typedef struct summeryWeatherReoprt {
 WDR readData();
 void printWeatherReport(WDR Records [NO_OF_REAGIONS] );
 void printSummeryReport(SWR Report);
+void mainMenuHandler();
 float calMaxTempurature(WDR Records [NO_OF_REAGIONS]);
 float calMinHumidity(WDR Records [NO_OF_REAGIONS]);
 int calTotalRainfall(WDR Records [NO_OF_REAGIONS]);
@@ -120,7 +121,7 @@ WDR readData(){
 }
 
 void printWeatherReport(WDR Records [NO_OF_REAGIONS] ) {
-    printf("\t\t Daily Weather Report \(%s\)\n", Records[0].date);
+    printf("\t\t Daily Weather Report \(%s)\n", Records[0].date);
     printf("CenterID\tTemperature(C)\tHumidity(%%)\tRainfall(ml)\tWind Speed(km/h)\n");
     printf("============================================================================\n\n");
     for (int i=0; i<NO_OF_REAGIONS; i++) {
@@ -160,7 +161,7 @@ int calTotalRainfall(WDR Records [NO_OF_REAGIONS]){
 }
 
 float calAvgWindSpeed(WDR Records [NO_OF_REAGIONS]) {
-    int AvgWindSpeed = 0;
+    float AvgWindSpeed = 0;
 
     for (int i=0; i<NO_OF_REAGIONS; i++) {
         AvgWindSpeed += Records[i].windSpeed;
@@ -187,5 +188,5 @@ void printSummeryReport(SWR Report){
     printf("Maximum Temperature(c)\t\t:%.2f\n", Report.maxTempurature);
     printf("Minimum Humidity(%%) \t\t:%.2f\n", Report.minHumidity);
     printf("Total Rainfall(ml)\t\t:%d\n", Report.totalRainfall);
-    printf("Average Wind Speed(km\h) \t\t:%.2f\n\n", Report.avgWindSpeed);
+    printf("Average Wind Speed(km/h) \t\t:%.2f\n\n", Report.avgWindSpeed);
 }
